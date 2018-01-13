@@ -5,7 +5,7 @@
 |Column  |Type  |Options                               |
 |:-------|:-----|:-------------------------------------|
 |name    |string|null: false, unique: true, index: true|
-|mail    |string|null: false, unique: true             |
+|email   |string|null: false, unique: true             |
 |password|string|null: false                           |
 
 ### Association
@@ -26,10 +26,10 @@
 
 ## membersテーブル
 
-|Column  |Type   |Options                                    |
-|:-------|:------|:------------------------------------------|
-|group_id|integer|null: false, foreign_key: true, index: true|
-|user_id |integer|null: false, foreign_key: true, index: true|
+|Column  |Type      |Options                                    |
+|:-------|:---------|:------------------------------------------|
+|group_id|references|null: false, foreign_key: true, index: true|
+|user_id |references|null: false, foreign_key: true, index: true|
 
 ### Association
 - belongs_to :group
@@ -37,12 +37,12 @@
 
 ## messagesテーブル
 
-|Column  |Type   |Options                                    |
-|:-------|:------|:------------------------------------------|
-|user_id |integer|null: false, foreign_key: true, index: true|
-|group_id|integer|null: false, foreign_key: true, index: true|
-|comment |text   |                                           |
-|image   |string |                                           |
+|Column  |Type      |Options                                    |
+|:-------|:---------|:------------------------------------------|
+|user_id |references|null: false, foreign_key: true, index: true|
+|group_id|references|null: false, foreign_key: true, index: true|
+|comment |text      |                                           |
+|image   |string    |                                           |
 
 ### Association
 - belongs_to :user
