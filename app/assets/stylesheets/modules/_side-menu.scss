@@ -1,0 +1,51 @@
+.side-menu {
+  height: 100%;
+  width: $sideMenuWidth;
+  float: left;
+
+  &__header {
+    background-color: #253141;
+    padding: 35px $sideMenuPadding;
+    height: $headerHeight;
+    box-sizing: border-box;
+    position: relative;
+
+    > span {
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 30px;
+      float: left;
+    }
+    &__icon {
+      color: #ffffff;
+      cursor: pointer;
+      float: right;
+      line-height: 30px;
+      margin-left: 8px;
+      font-size: $iconFontSize;
+    }
+    & :last-child {
+      @include clearfix();
+    }
+  }
+
+  &__group {
+    background-color: #2f3e51;
+    height: calc(100% - #{$headerHeight});
+    overflow-y: auto;
+
+    &__list {
+      color: #ffffff;
+      padding: 20px $sideMenuPadding;
+
+      &__name {
+        font-size: 15px;
+      }
+      &__chat {
+        font-size: 11px;
+        margin-top: 5px;
+      }
+    }
+  }
+}
