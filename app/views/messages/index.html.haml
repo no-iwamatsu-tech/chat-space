@@ -1,0 +1,31 @@
+!!!
+.side-menu
+  .side-menu__header
+    %span ユーザー名
+    = link_to "#" do
+      %i.fa.fa-cog.side-menu__header__icon
+    = link_to "#" do
+      %i.fa.fa-pencil-square-o.side-menu__header__icon
+  .side-menu__group
+    - for i in 1...101 do
+      = render 'messages/group', group: @group
+.chat-area.clearfix
+  .chat-area__group
+    %p.chat-area__group__name グループ名
+    %ul.chat-area__group__member
+      %span Member：
+      - for i in 1...11 do
+        %li.chat-area__group__member__list メンバー名#{i}
+    .chat-area__group__edit Edit
+  .chat-area__chat
+    - for i in 0...100 do
+      = render 'messages/chat', chat: @chat
+  .chat-area__send
+    %form
+      %input.chat-area__send__text{ type: 'text', placeholder: 'type a message' }
+      %input.chat-area__send__submit{ type: 'submit', value: 'Send' }
+      %label{ for: 'message-image' }
+        %i.fa.fa-picture-o.chat-area__send__icon
+        %input#message-image{ type: 'file', accept: 'image/*' }
+.info-bar
+  %p チャットグループが作成されました。
