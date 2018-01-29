@@ -1,8 +1,9 @@
 !!!
 .side-menu
   .side-menu__header
-    %span ユーザー名
-    = link_to "#" do
+    %span
+      = current_user.name
+    = link_to edit_user_path do
       %i.fa.fa-cog.side-menu__header__icon
     = link_to "#" do
       %i.fa.fa-pencil-square-o.side-menu__header__icon
@@ -27,5 +28,3 @@
       %label{ for: 'message-image' }
         %i.fa.fa-picture-o.chat-area__send__icon
         %input#message-image{ type: 'file', accept: 'image/*' }
-.info-bar
-  %p チャットグループが作成されました。
