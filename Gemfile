@@ -61,3 +61,8 @@ gem 'font-awesome-rails'
 
 #devise
 gem 'devise'
+
+# pry
+group :development do
+  gem 'pry-rails'
+end
