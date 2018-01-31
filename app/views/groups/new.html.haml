@@ -43,4 +43,4 @@
     .chat-group-form__field.clearfix
       .chat-group-form__field--left
       .chat-group-form__field--right
-        %input.chat-group-form__action-btn{ data: { disable: { with: "Save"}}, name: "commit", type: "submit", value: "Save" }/
+        = f.submit :Save, class: "chat-group-form__action-btn", "data-disable-with": "Save"
