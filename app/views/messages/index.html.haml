@@ -2,12 +2,15 @@
 = render 'layouts/side-menu'
 .chat-area.clearfix
   .chat-area__group
-    %p.chat-area__group__name グループ名
+    %p.chat-area__group__name
+      = @group.name
     %ul.chat-area__group__member
       %span Member：
-      - for i in 1...11 do
-        %li.chat-area__group__member__list メンバー名#{i}
-    .chat-area__group__edit Edit
+      - @group.users.each do |u|
+        %li.chat-area__group__member__list
+          = u.name
+    = link_to edit_group_path(@group.id) do
+      .chat-area__group__edit Edit
   .chat-area__chat
     - for i in 0...100 do
       = render 'messages/chat', chat: @chat
