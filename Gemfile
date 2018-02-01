@@ -66,3 +66,7 @@ gem 'devise'
 group :development, :test do
   gem 'pry-rails'
 end
+
+# image
+gem 'carrierwave'
+gem 'mini_magick'
