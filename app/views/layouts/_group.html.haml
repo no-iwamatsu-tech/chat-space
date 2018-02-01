@@ -2,4 +2,10 @@
   = link_to group_messages_path(group) do
     %p.side-menu__group__list__name
       = group.name
-    %p.side-menu__group__list__chat まだメッセージはありません。
+    %p.side-menu__group__list__chat
+      - if (last_message = group.messages.last).nil?
+        まだメッセージはありません。
+      - elsif last_message.comment.blank?
+        画像が投稿されています。
+      - else
+        = group.messages.last.comment
