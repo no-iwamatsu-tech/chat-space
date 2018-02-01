@@ -1,4 +1,7 @@
 .chat-area__chat__list
-  %span.chat-area__chat__list__name メンバー名
-  %span.chat-area__chat__list__date 2018/01/20 12:34:56
-  %p.chat-area__chat__list__message あいうえおあいうえおあいうえおあいうえおあいうえお
+  %span.chat-area__chat__list__name
+    = chat.user.name
+  %span.chat-area__chat__list__date
+    = chat.created_at.strftime("%Y/%m/%d %H:%M:%S")
+  %p.chat-area__chat__list__message
+    = chat.comment
