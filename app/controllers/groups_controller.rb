@@ -3,7 +3,6 @@ class GroupsController < ApplicationController
 
   def new
     @group = Group.new
-    @group.users = [current_user]
   end
 
   def create
@@ -25,7 +24,9 @@ class GroupsController < ApplicationController
 
   private
   def group_params
-    params.require(:group).permit(:name, { user_ids: [] })
+    ret_params = params.require(:group).permit(:name, { user_ids: [] })
+    ret_params["user_ids"] << current_user.id
+    return ret_params
   end
 
   def fetch_group
