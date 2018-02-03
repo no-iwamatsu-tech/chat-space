@@ -18,3 +18,4 @@
 
 # Ignore uploads images.
 public/uploads/message/image/*
+public/uploads/tmp/*
