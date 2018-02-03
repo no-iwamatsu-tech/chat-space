@@ -62,11 +62,19 @@ gem 'font-awesome-rails'
 #devise
 gem 'devise'
 
-# pry
 group :development, :test do
+  # debug
   gem 'pry-rails'
+
+  # rspec
+  gem 'rspec-rails'
+  gem 'factory_girl_rails', "~> 4.4.1"
 end
 
 # image
 gem 'carrierwave'
 gem 'mini_magick'
+
+group :test do
+  gem 'faker'
+end
