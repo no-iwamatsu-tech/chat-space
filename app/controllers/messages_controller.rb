@@ -1,19 +1,17 @@
 class MessagesController < ApplicationController
   before_action :fetch_group
+  before_action :fetch_messages, only: :index
 
   def index
     @message = Message.new
-    fetch_messages
   end
 
   def create
     @message = @group.messages.new(message_params)
     if @message.save
-      redirect_to group_messages_path(Group.find(params[:group_id])), notice: "メッセージを送信しました。"
+      redirect_to group_messages_url(params[:group_id]), notice: "メッセージを送信しました。"
     else
-      fetch_messages
-      flash[:alert] = "メッセージを入力してください。"
-      render :index
+      redirect_to group_messages_url(params[:group_id]), alert: "メッセージを入力してください。"
     end
   end
 
