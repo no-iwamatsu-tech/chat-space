@@ -43,6 +43,8 @@ describe MessagesController do
   end
 
   describe "POST #create" do
+    let(:params) { { group_id: group.id, user_id: user.id, message: attributes_for(:message) } }
+    subject { post :create, params: params }
 
     context "login" do
       before do
@@ -50,53 +52,31 @@ describe MessagesController do
       end
 
       context "can save" do
-        let(:params) {{
-          group_id: group.id,
-          user_id:  user.id,
-          message:  attributes_for(:message)
-        }}
-
         it "save message." do
-          expect {
-            post :create,
-            params: params
-          }.to change(Message, :count).by(1)
+          expect { subject }.to change(Message, :count).by(1)
         end
 
         it "redirects to group_messages_path" do
-          post :create, params: params
+          subject
           expect(response).to redirect_to(group_messages_path(group))
         end
       end
 
       context "cannot save" do
-        let(:params) {{
-          group_id: group.id,
-          user_id:  user.id,
-          message:  attributes_for(:message, comment: nil, image: nil)
-        }}
+        let(:invalid_params) { { group_id: group.id, user_id: user.id, message: attributes_for(:message, comment: nil, image: nil) } }
 
         it "not save message." do
-          expect {
-            post :create,
-            params: params
-          }.not_to change(Message, :count)
+          expect { post :create, params: invalid_params }.not_to change(Message, :count)
         end
 
         it "redirects to group_messages_path" do
-          post :create, params: params
+          subject
           expect(response).to redirect_to(group_messages_path(group))
         end
       end
     end
 
     context "not login" do
-      let(:params) {{
-        group_id: group.id,
-        user_id:  user.id,
-        message:  attributes_for(:message)
-      }}
-
       it "redirects to new_user_session_path." do
         post :create, params: params
         expect(response).to redirect_to(new_user_session_path)
