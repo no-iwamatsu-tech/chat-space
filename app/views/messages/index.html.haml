@@ -8,16 +8,15 @@
       %span Member：
       - @group.users.each do |u|
         %li.chat-area__group__member__list
-          = u.name
+          = u.name + ","
     = link_to edit_group_path(@group.id) do
       .chat-area__group__edit Edit
   .chat-area__chat
-    - for i in 0...100 do
-      = render 'messages/chat', chat: @chat
+    = render @messages
   .chat-area__send
-    %form
-      %input.chat-area__send__text{ type: 'text', placeholder: 'type a message' }
-      %input.chat-area__send__submit{ type: 'submit', value: 'Send' }
-      %label{ for: 'message-image' }
-        %i.fa.fa-picture-o.chat-area__send__icon
-        %input#message-image{ type: 'file', accept: 'image/*' }
+    = form_for [@group, @message] do |f|
+      = f.text_field :comment, class: "chat-area__send__text", placeholder: 'type a message'
+      = f.submit :"Send", class: "chat-area__send__submit"
+      = f.label :image do
+        = fa_icon "picture-o", class: "chat-area__send__icon"
+        = f.file_field :image, accept: "image/*"
