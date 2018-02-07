@@ -31,13 +31,13 @@ describe Message do
       it "is invalid without group_id." do
         message = build(:message, group_id: nil)
         message.valid?
-        expect(message.errors[:group]).to include("translation missing: ja.activerecord.errors.models.message.attributes.group.required")
+        expect(message.errors[:group]).to include("は必須です。")
       end
 
       it "is invalid without user_id." do
         message = build(:message, user_id: nil)
         message.valid?
-        expect(message.errors[:user]).to include("translation missing: ja.activerecord.errors.models.message.attributes.user.required")
+        expect(message.errors[:user]).to include("は必須です。")
       end
     end
   end
