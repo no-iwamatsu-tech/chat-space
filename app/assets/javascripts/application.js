@@ -13,4 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require_directory ./shared
 //= require_tree .
+
+function getFilename(url) {
+  if (typeof(url) != "string") {
+    return "";
+  }
+
+  var filename = url.match(".+/(.+?)\.[a-z]+([\?#;].*)?$")[1];
+  return filename.charAt(0).toUpperCase() + filename.slice(1).toLowerCase();
+}
