@@ -16,7 +16,7 @@
   .chat-area__send
     = form_for [@group, @message] do |f|
       = f.text_field :comment, class: "chat-area__send__text", placeholder: 'type a message'
-      = f.submit :"Send", class: "chat-area__send__submit"
+      = f.submit :"Send", class: "chat-area__send__submit", "data-disable-with": false
       = f.label :image do
         = fa_icon "picture-o", class: "chat-area__send__icon"
         = f.file_field :image, accept: "image/*"
