@@ -1,4 +1,4 @@
-$(function() {
+$(document).on("turbolinks:load", function() {
   function buildMessageHtml(message) {
     var html = `<div class="chat-area__chat__list">
                   <span class="chat-area__chat__list__name">${message.user_name}</span>
@@ -21,10 +21,12 @@ $(function() {
     }, 200);
   }
 
-  $("#new_message").on("submit", function(e) {
+  $("#new_message").off("submit").on("submit", function(e) {
     e.preventDefault();
     var formData = new FormData(this);
     var url = $(this).attr("action");
+
+    $(".chat-area__send__submit").prop("disabled", true);
 
     $.ajax({
       url: url,
@@ -57,12 +59,9 @@ $(function() {
     })
     .fail(function() {
       createInfoBar("alert", "メッセージの送信に失敗しました。");
+    })
+    .always(function() {
+      $(".chat-area__send__submit").prop("disabled", false);
     });
-    // .always(function() {
-    //   // TODO: failした場合にdisabledが削除できない...
-    //   $form = $($.rails.formSubmitSelector);
-    //   $.rails.enableFormElements($form);
-    //   $(".chat-area__send__submit").removeAttr("disabled");
-    // });
   });
 });
