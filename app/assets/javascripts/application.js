@@ -16,6 +16,14 @@
 //= require_directory ./shared
 //= require_tree .
 
+$(document).off("keypress", "input:not(.allow_submit)").on("keypress", "input:not(.allow_submit)", function(e) {
+  if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+    return false;
+  } else {
+    return true;
+  }
+});
+
 function getFilename(url) {
   if (typeof(url) != "string") {
     return "";
