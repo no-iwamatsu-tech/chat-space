@@ -2,7 +2,7 @@
   .side-menu__header
     %span
       = current_user.name
-    = link_to edit_user_path do
+    = link_to edit_user_path(current_user.id) do
       %i.fa.fa-cog.side-menu__header__icon
     = link_to new_group_path do
       %i.fa.fa-pencil-square-o.side-menu__header__icon
