@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   def index
-    @users = User.where("id <> (?)", current_user.id).where("name like(?)", "%#{params[:keyword]}%").order("id ASC").limit(20)
+    @users = User.except_user_id(current_user.id)
+                 .like_name(params[:keyword])
+                 .asc_id
+                 .limit(20)
     respond_to do |format|
       format.html { redirect_to controller: :groups, action: :index }
       format.json
