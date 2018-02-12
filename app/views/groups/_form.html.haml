@@ -13,31 +13,24 @@
     .chat-group-form__field--right
       = f.text_field :name, class: "chat-group-form__input", placeholder: "グループ名を入力してください", value: group.name
   .chat-group-form__field.clearfix
-    / この部分はインクリメンタルサーチ（ユーザー追加の非同期化のときに使用します
-    /
-      <div class='chat-group-form__field--left'>
-      <label class="chat-group-form__label" for="chat_group_チャットメンバーを追加">チャットメンバーを追加</label>
-      </div>
-      <div class='chat-group-form__field--right'>
-      <div class='chat-group-form__search clearfix'>
-      <input class='chat-group-form__input' id='user-search-field' placeholder='追加したいユーザー名を入力してください' type='text'>
-      </div>
-      <div id='user-search-result'></div>
-      </div>
+    .chat-group-form__field--left
+      = f.label :チャットメンバーを追加, class: "chat-group-form__label"
+    .chat-group-form__field--right
+      .chat-group-form__search.clearfix
+        %input#user-search-field.chat-group-form__input{ type: "text", placeholder: "追加したいユーザー名を入力してください" }
+      #user-search-result
   .chat-group-form__field.clearfix
     .chat-group-form__field--left
       = f.label :チャットメンバー, class: "chat-group-form__label"
     .chat-group-form__field--right
-      = f.collection_check_boxes :user_ids, User.where("id <> ?", current_user.id), :id, :name do |b|
-        = b.label { b.check_box + b.text }
-      / この部分はインクリメンタルサーチ（ユーザー追加の非同期化のときに使用します
-      /
-        <div id='chat-group-users'>
-        <div class='chat-group-user clearfix' id='chat-group-user-22'>
-        <input name='chat_group[user_ids][]' type='hidden' value='22'>
-        <p class='chat-group-user__name'>seo_kyohei</p>
-        </div>
-        </div>
+      #chat-group-users
+        - @group.users.each do |user|
+          .chat-group-user-member.chat-group-user.clearfix{ "data-user_id": user.id }
+            = f.hidden_field :user_ids, name: "group[user_ids][]", value: user.id
+            %p.chat-group-user__name
+              = user.name
+            - if user.id != current_user.id
+              %a.user-search-remove.chat-group-user__btn.chat-group-user__btn--remove 削除
   .chat-group-form__field.clearfix
     .chat-group-form__field--left
     .chat-group-form__field--right
