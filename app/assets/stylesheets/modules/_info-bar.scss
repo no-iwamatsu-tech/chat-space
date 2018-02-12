@@ -1,0 +1,20 @@
+.info-bar {
+  @include box-under-shadow();
+  width: 100vw;
+  background-color: #ffffff;
+  position: absolute;
+  text-align: center;
+  top: 0px;
+
+  &.alert {
+    background-color: #f35500;
+  }
+  &.notice {
+    background-color: #38aef0;
+  }
+
+  > p {
+    color: #ffffff;
+    line-height: 1.6em;
+  }
+}

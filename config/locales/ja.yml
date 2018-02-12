@@ -1,0 +1,4 @@
+ja:
+  errors:
+    messages:
+      required: "は必須です。"

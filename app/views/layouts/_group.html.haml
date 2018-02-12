@@ -1,0 +1,6 @@
+.side-menu__group__list{"data-group_id": group.id}
+  = link_to group_messages_path(group) do
+    %p.side-menu__group__list__name
+      = group.name
+    %p.side-menu__group__list__chat
+      = group.last_message

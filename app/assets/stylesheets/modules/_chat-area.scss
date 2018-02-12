@@ -1,0 +1,115 @@
+.chat-area {
+  @include clearfix();
+  height: 100%;
+  width: calc(100vw - #{$sideMenuWidth});
+  background-color: #ffffff;
+  float: left;
+
+  &__group {
+    height: $headerHeight;
+    border-bottom: 1px solid #eeeeee;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+
+    &__name {
+      padding: 35px $chatAreaPadding 15px $chatAreaPadding;
+      font-size: 20px;
+      color: #333333;
+    }
+    &__member {
+      padding: 0px $chatAreaPadding;
+      font-size: 12px;
+      color: #999999;
+      
+      &__list {
+        margin-right: 4px;
+      }
+      & :nth-child(n) {
+        float: left;
+      }
+      & :last-child {
+        @include clearfix();
+      }
+    }
+    &__edit {
+      position: absolute;
+      top: 28px;
+      right: $chatAreaPadding;
+      height: 40px;
+      line-height: 38px;
+      padding: 0px 20px;
+      box-sizing: border-box;
+      border: 1px solid #38aef0;
+      color: #38aef0;
+      cursor: pointer;
+    }
+  }
+
+  &__chat {
+    height: calc(100% - #{$headerHeight} - #{$sendFormHeight});
+    background-color: #fafafa;
+    overflow-y: auto;
+
+    &__list {
+      margin: 46px $chatAreaPadding 46px $chatAreaPadding;
+
+      &__name {
+        font-size: 16px;
+        font-weight: bold;
+        color: #434A54;
+      }
+      &__date {
+        font-size: 12px;
+        color: #999999;
+        margin-left: 10px;
+      }
+      &__message {
+        font-size: 14px;
+        color: #434A54;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  &__send {
+    height: $sendFormHeight;
+    padding: ($sendFormHeight - $sendFormInnerHeight) / 2 0px;
+    background-color: #dddddd;
+    position: relative;
+    box-sizing: border-box;
+
+    &__text {
+      height: $sendFormInnerHeight;
+      margin-left: $chatAreaPadding;
+      width: calc(100% - #{$chatAreaPadding} * 2 - #{$sendButtonWidth} - #{$sendTextButtonMargin});
+      padding: 0px 40px 0px 10px;
+      float: left;
+      box-sizing: border-box;
+    }
+
+    &__submit {
+      @include clearfix();
+      height: $sendFormInnerHeight;
+      width: $sendButtonWidth;
+      background-color: #38aef0;
+      color: #ffffff;
+      margin-right: $chatAreaPadding;
+      border: none;
+      float: right;
+      cursor: pointer;
+    }
+
+    &__icon {
+      position: absolute;
+      line-height: $sendFormInnerHeight;
+      font-size: $iconFontSize;
+      right: $chatAreaPadding + $sendButtonWidth + $sendTextButtonMargin + 10px;
+      cursor: pointer;
+    }
+
+    #message_image {
+      display: none;
+    }
+  }
+}
