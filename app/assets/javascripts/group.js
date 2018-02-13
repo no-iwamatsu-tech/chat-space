@@ -1,20 +1,22 @@
 $(document).on("turbolinks:load", function() {
 
   function appendSearchUser(user) {
-    var html = `<div class="chat-group-user-search chat-group-user clearfix" data-user_id="${user.id}" data-user_name="${user.name}">
-                  <p class="chat-group-user__name">${user.name}</p>
-                  <a class="user-search-add chat-group-user__btn chat-group-user__btn--add">追加</a>
-                </div>`;
+    var html = "";
+    html += '<div class="chat-group-user-search chat-group-user clearfix" data-user_id="' + user.id + '" data-user_name="' + user.name + '">';
+    html += '  <p class="chat-group-user__name">' + user.name + '</p>';
+    html += '  <a class="user-search-add chat-group-user__btn chat-group-user__btn--add">追加</a>';
+    html += '</div>';
     
     $("#user-search-result").append(html);
   }
 
   function appendChatMember(id, name) {
-    var html = `<div class="chat-group-user-member chat-group-user clearfix" data-user_id="${id}">
-                  <input type="hidden" name="group[user_ids][]" value="${id}">
-                  <p class="chat-group-user__name">${name}</p>
-                  <a class="user-search-remove chat-group-user__btn chat-group-user__btn--remove">削除</a>
-                </div>`;
+    var html = "";
+    html += '<div class="chat-group-user-member chat-group-user clearfix" data-user_id="' + id + '">';
+    html += '  <input type="hidden" name="group[user_ids][]" value="' + id + '">';
+    html += '  <p class="chat-group-user__name">' + name + '</p>';
+    html += '  <a class="user-search-remove chat-group-user__btn chat-group-user__btn--remove">削除</a>';
+    html += '</div>';
 
     $("#chat-group-users").append(html);
   }
