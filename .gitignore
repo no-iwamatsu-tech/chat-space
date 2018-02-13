@@ -19,3 +19,6 @@
 # Ignore uploads images.
 public/uploads/message/image/*
 public/uploads/tmp/*
+
+# Ignore secrets key.
+config/secrets.yml
