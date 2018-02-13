@@ -1,16 +1,17 @@
 $(document).on("turbolinks:load", function() {
   function buildMessageHtml(message) {
-    var html = `<div class="chat-area__chat__list">
-                  <span class="chat-area__chat__list__name">${message.user_name}</span>
-                  <span class="chat-area__chat__list__date">${message.created_at}</span>
-                  <p class="chat-area__chat__list__message">${message.comment}</p>`;
+    var html = "";
+    html += '<div class="chat-area__chat__list">';
+    html += '  <span class="chat-area__chat__list__name">' + message.user_name + '</span>';
+    html += '  <span class="chat-area__chat__list__date">' + message.created_at + '</span>';
+    html += '  <p class="chat-area__chat__list__message">' + message.comment + '</p>';
     
     if (message.image_url != null) {
       var filename = getFilename(message.image_url);
-      html += `<img src="${message.image_url}" alt="${filename}">`;
+      html += '  <img src="' + message.image_url + '" alt="' + filename + '">';
     }
 
-    html += `</div>`;
+    html += '</div>';
 
     return html;
   }
@@ -50,7 +51,7 @@ $(document).on("turbolinks:load", function() {
         $(".chat-area__chat").append(html);
 
         // サイドバー修正.
-        var last_message = $(`.side-menu__group__list[data-group_id=${data.group_id}] .side-menu__group__list__chat`);
+        var last_message = $('.side-menu__group__list[data-group_id=' + data.group_id + '] .side-menu__group__list__chat');
         last_message.html(data.last_message);
 
         // 自動スクロール.

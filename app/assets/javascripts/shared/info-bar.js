@@ -9,8 +9,10 @@ function createInfoBar(key, value) {
     return;
   }
 
-  var html = `<div class="info-bar ${key}">
-                <p>${value}</p>
-              </div>`
+  var html = "";
+  html += '<div class="info-bar ' + key + '">';
+  html += '  <p>' + value + '</p>';
+  html += '</div>';
+  
   $("body").append(html);
 }
