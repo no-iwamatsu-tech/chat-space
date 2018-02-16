@@ -70,7 +70,6 @@ $(document).off("turbolinks:load").on("turbolinks:load", function() {
       changeGroupLastMessage(data.group_id, data.last_message);
     })
     .fail(function() {
-      console.log("async update of message is failed.");
     })
     .always(function() {
       setMessageTimeout();
