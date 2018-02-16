@@ -1,4 +1,7 @@
-$(document).on("turbolinks:load", function() {
+var messageTimeoutIdentifier = -1;
+
+$(document).off("turbolinks:load").on("turbolinks:load", function() {
+
   function buildMessageHtml(message) {
     var html = "";
     html += '<div class="chat-area__chat__list">';
@@ -16,10 +19,62 @@ $(document).on("turbolinks:load", function() {
     return html;
   }
 
+  function changeGroupLastMessage(groupId, message) {
+    var last_message = $('.side-menu__group__list[data-group_id=' + groupId + '] .side-menu__group__list__chat');
+    if (last_message) {
+      last_message.html(message);
+    }
+  }
+
   function scrollBottom() {
     $(".chat-area__chat").animate({
       scrollTop: $(".chat-area__chat")[0].scrollHeight
     }, 200);
+  }
+
+  function clearMessageTimeout() {
+    if (0 <= messageTimeoutIdentifier) {
+      clearTimeout(messageTimeoutIdentifier);
+    }
+  }
+
+  function setMessageTimeout() {
+    clearMessageTimeout();
+
+    if (getUrlLastString() == "messages") {
+      messageTimeoutIdentifier = setTimeout(onMessageTimeout, 5000);
+    }
+  }
+
+  function onMessageTimeout() {
+    if (getUrlLastString() != "messages" || $(".chat-area__send__submit").prop("disabled")) {
+      setMessageTimeout();
+      return;
+    }
+
+    $.ajax({
+      url: location.href,
+      type: "GET",
+      dataType: "json"
+    })
+    .done(function(data) {
+      
+      // 新規コメント生成.
+      var html = "";
+      data.messages.forEach(function (message) {
+        html += buildMessageHtml(message);
+      });
+      $(".chat-area__chat").empty().append(html);
+
+      // サイドバー修正.
+      changeGroupLastMessage(data.group_id, data.last_message);
+    })
+    .fail(function() {
+      console.log("async update of message is failed.");
+    })
+    .always(function() {
+      setMessageTimeout();
+    });
   }
 
   $("#new_message").off("submit").on("submit", function(e) {
@@ -28,6 +83,7 @@ $(document).on("turbolinks:load", function() {
     var url = $(this).attr("action");
 
     $(".chat-area__send__submit").prop("disabled", true);
+    clearMessageTimeout();
 
     $.ajax({
       url: url,
@@ -51,8 +107,7 @@ $(document).on("turbolinks:load", function() {
         $(".chat-area__chat").append(html);
 
         // サイドバー修正.
-        var last_message = $('.side-menu__group__list[data-group_id=' + data.group_id + '] .side-menu__group__list__chat');
-        last_message.html(data.last_message);
+        changeGroupLastMessage(data.group_id, data.last_message);
 
         // 自動スクロール.
         scrollBottom();
@@ -63,6 +118,9 @@ $(document).on("turbolinks:load", function() {
     })
     .always(function() {
       $(".chat-area__send__submit").prop("disabled", false);
+      setMessageTimeout();
     });
   });
+
+  setMessageTimeout();
 });
